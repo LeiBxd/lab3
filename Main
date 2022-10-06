@@ -1,0 +1,117 @@
+package lab3;
+
+public class Main
+
+{
+
+    public static void main(String[] args)
+
+    {
+
+        AbstractList<Rational> arr = new AbstractList<>(new Rational[10]);
+
+        arr.insert(new Rational(1,1),arr.end());
+
+        arr.insert(new Rational(3,4),arr.end());
+
+        arr.insert(new Rational(8,12),arr.end());
+
+        arr.insert(new Rational(7,8),arr.end());
+
+        arr.insert(new Rational(2,2),arr.end()); // Удалится.
+
+        arr.insert(new Rational(2,3),arr.end()); // Удалится.
+
+        arr.insert(new Rational(-35,14),arr.end());
+
+        arr.insert(new Rational(15,16),arr.end());
+
+        arr.insert(new Rational(63,72),arr.end()); // Удалится.
+
+        arr.printList();
+
+        purify(arr);
+
+        arr.printList();
+
+        AbstractList<Integer> arrInt = new AbstractList<>(new Integer[10]);
+
+        arrInt.insert(0,arrInt.end());
+
+        arrInt.insert(2,arrInt.end());
+
+        arrInt.insert(1,arrInt.end());
+
+        arrInt.insert(0,arrInt.end()); // Удалится.
+
+        arrInt.insert(1,arrInt.end()); // Удалится.
+
+        arrInt.insert(2,arrInt.end()); // Удалится.
+
+        arrInt.printList();
+
+        purify(arrInt);
+
+        arrInt.printList();
+
+        AbstractList<String> arrStr = new AbstractList<>(new String[10]);
+
+        arrStr.insert("a",arrStr.end());
+
+        arrStr.insert("a",arrStr.end()); // Удалится.
+
+        arrStr.insert("c",arrStr.end());
+
+        arrStr.insert("d",arrStr.end());
+
+        arrStr.insert("e",arrStr.end());
+
+        arrStr.insert("c",arrStr.end()); // Удалится.
+
+        arrStr.insert("d",arrStr.end()); // Удалится.
+
+        arrStr.insert("f",arrStr.end());
+
+        arrStr.insert("e",arrStr.end()); // Удалится.
+
+        arrStr.printList();
+
+        purify(arrStr);
+
+        arrStr.printList();
+
+    }
+
+// Удаляет повторения
+
+    public static <T extends Comparable<T>> void purify(AbstractList<T> list){
+
+        for (int i = list.first(); i != list.end(); i = list.next(i)) {
+
+            for (int j = list.next(i); j != list.end(); j = list.next(j)) {
+
+                if (list.retrieve(i).compareTo(list.retrieve(j)) == 0) {
+
+                    list.delete(j);
+
+                    if (j != list.end()) {
+
+                        j = list.previous(j);
+
+                    }
+
+                    else {
+
+                        break;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}
