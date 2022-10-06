@@ -1,0 +1,14 @@
+package lab3;
+public class OutOfBoundsException extends RuntimeException
+
+{
+
+    public String toString()
+
+    {
+
+        return ("Out of bounds!");
+
+    }
+
+}
