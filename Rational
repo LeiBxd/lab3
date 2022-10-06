@@ -1,0 +1,109 @@
+package lab3;
+
+public class Rational implements Comparable<Rational>
+
+{
+
+    private int NUMERATOR; // Числитель
+
+    private int DENOMINATOR; // Знаменатель
+
+    public Rational(int NUMERATOR, int DENOMINATOR)
+
+    {
+
+        if (DENOMINATOR == 0) { // если знаменатель равен нулю выдает ошибку
+
+            throw new IllegalArgumentException();
+
+        }
+
+        if (DENOMINATOR < 0) { // если знаменатель меньше нуля знак переходит к числителю
+
+            NUMERATOR = NUMERATOR * -1;
+
+            DENOMINATOR = Math.abs(DENOMINATOR);
+
+        }
+
+        int gcd = greatestCommonDivisor(Math.abs(NUMERATOR), DENOMINATOR);
+
+// сокращение
+
+        this.NUMERATOR = NUMERATOR / gcd;
+
+        this.DENOMINATOR = DENOMINATOR / gcd;
+
+    }
+
+// Возвращает наибольший общий делитель
+
+    public int greatestCommonDivisor(int a, int b){
+
+        do {
+
+            int REMAINDER = a % b;
+
+            a = b;
+
+            b = REMAINDER;
+
+        }
+
+        while (b != 0);
+
+        return a;
+
+    }
+
+// сраванивает два числа
+
+    public int compareTo(Rational b) {
+
+        return NUMERATOR * b.DENOMINATOR - DENOMINATOR * b.NUMERATOR;
+
+    }
+
+// Возвращает дробь в виде строки
+
+    public String toString() {
+
+        String str = "";
+
+        if (NUMERATOR == 0) { // если числитель равен нулю, то строка будет 0
+
+            str += "0";
+
+        }
+
+        else {
+
+            int tmpNUMERATOR = NUMERATOR;
+
+            if (tmpNUMERATOR < 0){ // Если числитель отрицательный
+
+                str += "-";
+
+                tmpNUMERATOR = Math.abs(tmpNUMERATOR);
+
+            }
+
+            if (tmpNUMERATOR >= DENOMINATOR){ // Целая часть
+
+                str += " " + tmpNUMERATOR / DENOMINATOR;
+
+            }
+
+            if (tmpNUMERATOR % DENOMINATOR != 0){ // Дробная часть
+
+                str += " " + tmpNUMERATOR % DENOMINATOR + "/" + DENOMINATOR;
+
+            }
+
+        }
+
+        return str;
+
+    }
+
+}
