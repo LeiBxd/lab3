@@ -1,0 +1,175 @@
+package lab3;
+
+public class AbstractList<T extends Comparable<T>>
+
+{
+
+    private T array[];
+
+    private int EMPTY_INDEX; // Первая пустая позиция
+
+    AbstractList(T[] array)
+
+    {
+
+        this.array = array;
+
+        EMPTY_INDEX = 0;
+
+    }
+
+    public int end() { // Возвращает позицию после последнего элемента списка
+
+        return EMPTY_INDEX;
+
+    }
+
+    public void insert(T x, int p) { // Вставка в позицию p элемента x
+
+        if (p >= 0 && p <= EMPTY_INDEX && EMPTY_INDEX < array.length){
+
+// Перенос всех значений c p на 1.
+
+            for (int i = EMPTY_INDEX; i > p; i--) {
+
+                array[i] = array[i-1];
+
+            }
+
+            array[p] = x; // вставка в p
+
+            EMPTY_INDEX++;
+
+        }
+
+        else {
+
+            throw new OutOfBoundsException();
+
+        }
+
+    }
+
+// Возвращает позицию первого встреченного в списке значения x
+
+    public int locate(T x) {
+
+        for (int i = 0; i < EMPTY_INDEX; i++) {
+
+            if (x.compareTo(array[i]) == 0) {
+
+                return i;
+
+            }
+
+        }
+
+        return EMPTY_INDEX;
+
+    }
+
+// Возвращается элемент из списка в позиции p
+
+    public T retrieve(int p) {
+
+        if (p < 0 || p >= EMPTY_INDEX) {
+
+            throw new OutOfBoundsException();
+
+        }
+
+        return array[p];
+
+    }
+
+// В списке удалить значение в позиции p
+
+    public void delete(int p) {
+
+        if (p >= 0 && p < EMPTY_INDEX){
+
+            for (int i = p; i < EMPTY_INDEX - 1; i++){ // Сдвигаем с позиции p все элементы влево
+
+                array[i] = array[i+1];
+
+            }
+
+            EMPTY_INDEX--;
+
+        }
+
+        else {
+
+            throw new OutOfBoundsException();
+
+        }
+
+    }
+
+// Возвращается следующая за p в списке позиция
+
+    public int next(int p) {
+
+        if (p < 0 || p >= EMPTY_INDEX){
+
+            throw new OutOfBoundsException();
+
+        }
+
+        return p+1; //Возврат следующей позиции
+
+    }
+
+// Возвращает предыдущую позицию перед p в списке
+
+    public int previous(int p) {
+
+        if (p <= 0 || p >= EMPTY_INDEX) {
+
+            throw new OutOfBoundsException();
+
+        }
+
+        return p-1; //Возврат предыдущей позиции
+
+    }
+
+// Очистка списка.
+
+    public void makeNull() {
+
+        EMPTY_INDEX = 0;
+
+    }
+
+// Возвращает первую позицию списка
+
+    public int first() {
+
+        return 0;
+
+    }
+
+// Выводит список на экран в соответствии с позициями элементов
+
+    public void printList() {
+
+        if (EMPTY_INDEX == 0) {
+
+            System.out.println("");
+
+            return;
+
+        }
+
+        for (int i = 0; i < EMPTY_INDEX - 1; i++) {
+
+            System.out.print(array[i] + ",");
+
+        }
+
+        System.out.println(array[EMPTY_INDEX - 1]);
+
+    }
+
+}
